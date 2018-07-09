@@ -9,10 +9,13 @@ public class MainClass {
 		String configlocation = "classpath:applicationCTX.xml";
 		AbstractApplicationContext ctx= new GenericXmlApplicationContext(configlocation);
 		StudentInfo studentInfo = ctx.getBean("studentInfo", StudentInfo.class);
+		Student student2 = ctx.getBean("student2", Student.class);
 		ctx.close();
 		
 		studentInfo.getStudentInfo();
-
+		studentInfo.setStudent(student2);
+		studentInfo.getStudentInfo();
+		
 	}
 
 }

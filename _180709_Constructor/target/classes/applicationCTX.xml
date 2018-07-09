@@ -3,15 +3,22 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
 	
-	<bean id="student" class="com.wind.sp05.Student">
+	<bean id="student1" class="com.wind.sp05.Student">
 		<constructor-arg index="0" value="토드 앤더슨" />
 		<constructor-arg index="1" value="15" />
 		<constructor-arg index="2" value="1학년" />
 		<constructor-arg index="3" value="20번" />
 	</bean>
 	
+	<bean id="student2" class="com.wind.sp05.Student">
+		<constructor-arg index="0" value="닐페리" />
+		<constructor-arg index="1" value="15" />
+		<constructor-arg index="2" value="1학년" />
+		<constructor-arg index="3" value="21번" />
+	</bean>
+	
 	<bean id="studentInfo" class="com.wind.sp05.StudentInfo">
-		<constructor-arg ref="student" />
+		<constructor-arg ref="student1" />
 	</bean>
 
 </beans>
