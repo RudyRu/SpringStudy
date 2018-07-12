@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="student2" class="com.wind.sp06.Student"> <!-- student2 bean객체를 만듦 -->
+			<constructor-arg value="배트맨"></constructor-arg> <!-- 생성자 -->
+			<constructor-arg value="30"></constructor-arg>
+			<constructor-arg>
+				<list>
+					<value>수영</value>
+					<value>낮잠</value>
+				</list>
+			</constructor-arg>
+			<property name="height" value="150"></property> <!--Student클래스의 setter메소드이용 -->
+			<property name="weight" value="70"></property>
+		</bean>
+
+</beans>

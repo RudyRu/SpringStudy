@@ -1,0 +1,60 @@
+package com.wind.sp07;
+
+import java.util.ArrayList;
+
+public class Student {
+	
+	private String name;
+	private String age;
+	private ArrayList<String> hobbies;
+	private double height;
+	private double weight;
+	
+	public Student() {
+		
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+	public double getWeight() {
+		return weight;
+	}
+
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+
+	public ArrayList<String> getHobbies() {
+		return hobbies;
+	}
+
+	public void setHobbies(ArrayList<String> hobbies) {
+		this.hobbies = hobbies;
+	}
+
+	
+	
+	
+}
