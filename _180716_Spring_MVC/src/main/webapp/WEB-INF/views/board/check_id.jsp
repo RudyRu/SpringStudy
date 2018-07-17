@@ -10,7 +10,7 @@
 </h1>
 
 <P> ID : ${id} </P>
-<P> NAME : ${name}  </P>
+<P> PW : ${pw}  </P>
 
 </body>
 </html>
