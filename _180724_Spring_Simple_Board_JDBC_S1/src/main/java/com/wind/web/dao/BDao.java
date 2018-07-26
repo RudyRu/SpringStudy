@@ -1,39 +1,30 @@
 package com.wind.web.dao;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.stereotype.Repository;
 
 import com.wind.web.dto.BDto;
-import com.wind.web.util.Constant;
 
+
+@Repository
 public class BDao {
 	
-	DataSource dataSource;
-	JdbcTemplate template = null;
+	static JdbcTemplate template;
+	
+	@Autowired
+	public void setTemplate(JdbcTemplate template) {
+		this.template = template;
+	}
 	
 	public BDao() {
-		template = Constant.template;
-		try {
-			Context context = new InitialContext();
-			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/Oracle11g");
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+		
 	}
 		
 	public ArrayList<BDto> list(){		
@@ -49,29 +40,15 @@ public class BDao {
 		return (BDto) template.queryForObject(query, new BeanPropertyRowMapper<BDto>(BDto.class));
 	}	
 	
-	public void upHit(String bId) {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		
-		try {
-			connection = dataSource.getConnection();
-			String query = "update mvc_board set bHit = bHit + 1 where bId = ?";
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, bId);
-			
-			int rn = preparedStatement.executeUpdate();
-						
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(preparedStatement != null) preparedStatement.close();
-				if(connection != null) connection.close();				
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}		
-	}	
+	public void upHit(final String bId) {
+		String query = "update mvc_board set bHit = bHit + 1 where bId = ?";
+		template.update(query, new PreparedStatementSetter() {
+			@Override
+			public void setValues(PreparedStatement ps) throws SQLException {
+				ps.setString(1, bId);				
+			}			
+		});	
+	}
 	
 	public void write(final String bName, final String bTitle, final String bContent) {
 		String query = "insert into mvc_board (bId, bName, bTitle, bContent, bHit, bGroup, bStep, bIndent) "
