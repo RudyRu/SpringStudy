@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wind.web.dao.IDao">
+
+
+  <select id="vetselect_viewDao" resultType="com.wind.web.dto.SpecialtiesDto">
+    SELECT id, name FROM specialties ORDER BY id ASC
+  </select>
+
+  <select id="vetslistDao" resultType="com.wind.web.dto.VetsDto">
+    SELECT id FROM VETS ORDER BY FIRST_NAME ASC
+  </select>
+ 
+  <select id="vetselectDao" resultType="com.wind.web.dto.VetspecialtiesDto">
+    SELECT vet_id FROM vet_specialties WHERE specialty_id = #{param1}
+  </select>
+
+
+  <select id="vetselect2Dao" resultType="com.wind.web.dto.VetsDto">
+    SELECT * FROM vets WHERE id = #{param1}
+  </select>
+
+  <select id="vetselect3Dao" resultType="com.wind.web.dto.VetsDto">
+    SELECT * FROM vets WHERE ID IN (SELECT vet_id FROM vet_specialties WHERE specialty_id = #{param1})
+  </select>
+
+  <select id="listDao" resultType="com.wind.web.dto.ContentDto">
+		SELECT BID, BNAME, BTITLE, BCONTENT, BDATE, BHIT, BGROUP, BSTEP, BINDENT FROM MVC_BOARD ORDER BY BGROUP DESC, BSTEP ASC
+	</select>
+	
+	<insert id="writeDao">
+		INSERT INTO MVC_BOARD (BID, BNAME, BTITLE, BCONTENT, BHIT, BGROUP, BSTEP, BINDENT) 
+		VALUES (MVC_BOARD_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, 0, MVC_BOARD_SEQ.CURRVAL, 0, 0)
+	</insert>
+	
+	<delete id="deleteDao">
+		DELETE FROM MVC_BOARD WHERE BID = #{param1}
+	</delete>
+	
+	<select id="viewDao" resultType="com.wind.web.dto.ContentDto">
+    SELECT * FROM MVC_BOARD WHERE BID = #{param1}
+  </select>
+
+  <update id="modifyDao">
+    UPDATE MVC_BOARD SET BNAME = #{param1}, BTITLE = #{param2}, BCONTENT = #{param3} WHERE BID = #{param4}
+  </update>  
+
+  <insert id="replyDao">
+    INSERT INTO MVC_BOARD (BID, BNAME, BTITLE, BCONTENT, BGROUP, BSTEP, BINDENT) VALUES (MVC_BOARD_SEQ.NEXTVAL, 
+    #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6})
+  </insert>  
+
+  <select id="reply_viewDao" resultType="com.wind.web.dto.ContentDto">
+    SELECT * FROM MVC_BOARD WHERE BID = #{param1}
+  </select>
+  
+  <update id="replyShape">
+    UPDATE MVC_BOARD SET BSTEP = BSTEP + 1 WHERE BGROUP = #{param1} AND BSTEP > #{param2}
+  </update>  
+  
+  <update id="upHit">
+    UPDATE MVC_BOARD SET BHIT = BHIT + 1 WHERE BID = #{param1}
+  </update>  
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wind.web.dao.VetsDao">
+
+  <select id="vetselectDao" resultType="com.wind.web.dto.VetspecialtiesDto">
+    SELECT vet_id FROM vet_specialties WHERE specialty_id = #{param1}
+  </select>
+  
+  <select id="vetslistDao" resultType="com.wind.web.dto.VetsDto">
+    SELECT * FROM VETS ORDER BY id ASC
+  </select>
+ 
+  <select id="vetselect2Dao" resultType="com.wind.web.dto.VetsDto">
+    SELECT * FROM vets WHERE id = #{param1}
+  </select>
+
+  <select id="vetselect3Dao" resultType="com.wind.web.dto.VetsDto">
+    SELECT * FROM vets WHERE ID IN (SELECT vet_id FROM vet_specialties WHERE specialty_id = #{param1})
+  </select>
+
+  <insert id="vet_addDao">
+    INSERT INTO vets (id, first_name, last_name) values (vets_seq.nextval, #{param1}, #{param2})
+  </insert>
+
+</mapper>
